@@ -97,6 +97,10 @@
               "})",
               "pm.test(\"O post volta com o título enviado\", () => {",
               "  pm.expect(pm.response.json().title).to.eql(\"Teste de QA\")",
+              "})",
+              "pm.test(\"O post pertence ao usuário enviado\", () => {",
+              "  const enviado = JSON.parse(pm.request.body.raw)",
+              "  pm.expect(pm.response.json().userId).to.eql(enviado.userId)",
               "})"
             ]
           }
