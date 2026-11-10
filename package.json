@@ -1,0 +1,10 @@
+{
+  "name": "semana13-felipe-lemos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Integração Contínua em QA - Semana 13",
+  "scripts": {
+    "test": "newman run colecao.json --timeout-request 30000 --reporters cli,json,junit --reporter-json-export relatorios/newman.json --reporter-junit-export relatorios/newman.xml"
+  },
+  "devDependencies": { "newman": "6.2.3" }
+}

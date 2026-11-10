@@ -1,0 +1,132 @@
+{
+  "info": {
+    "name": "Semana 13 – API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Buscar usuário 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code é 200\", () => {",
+              "  pm.response.to.have.status(200)",
+              "})",
+              "pm.test(\"O usuário tem id 1\", () => {",
+              "  pm.expect(pm.response.json().id).to.eql(1)",
+              "})",
+              "pm.test(\"O nome é Leanne Graham\", () => {",
+              "  pm.expect(pm.response.json().name).to.eql(\"Leanne Graham\")",
+              "})",
+              "pm.test(\"O corpo segue o JSON Schema\", () => {",
+              "  const schema = {",
+              "    type: \"object\",",
+              "    required: [\"id\", \"name\", \"email\"],",
+              "    properties: { id: { type: \"number\" }, name: { type: \"string\" }, email: { type: \"string\" } }",
+              "  }",
+              "  pm.response.to.have.jsonSchema(schema)",
+              "})"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users/1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Usuário inexistente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Usuário inexistente devolve 404\", () => {",
+              "  pm.response.to.have.status(404)",
+              "})"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/users/9999",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "users",
+            "9999"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Criar post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code é 201 (criado)\", () => {",
+              "  pm.response.to.have.status(201)",
+              "})",
+              "pm.test(\"O post volta com o título enviado\", () => {",
+              "  pm.expect(pm.response.json().title).to.eql(\"Teste de QA\")",
+              "})"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"Teste de QA\", \"body\": \"Rodando no pipeline\", \"userId\": 1}"
+        }
+      }
+    }
+  ]
+}
